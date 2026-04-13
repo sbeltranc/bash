@@ -1,6 +1,12 @@
 <script setup lang="ts">
+const seoTitle = 'Bash'
+const seoDescription = 'Build and submit projects every week, compete with others and earn free prizes'
+const hackClubFlag = 'https://www.figma.com/api/mcp/asset/6495d6a1-a872-47f5-848b-c16ca622ce11'
+
 useHead({
   link: [
+    { rel: 'icon', href: hackClubFlag },
+    { rel: 'apple-touch-icon', href: hackClubFlag },
     { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
     { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: '' },
     {
@@ -8,6 +14,18 @@ useHead({
       href: 'https://fonts.googleapis.com/css2?family=Jeju+Gothic&family=Libre+Barcode+39+Text&family=Libre+Barcode+128&display=swap'
     }
   ]
+})
+
+useSeoMeta({
+  title: seoTitle,
+  description: seoDescription,
+  ogTitle: seoTitle,
+  ogDescription: seoDescription,
+  ogImage: hackClubFlag,
+  twitterCard: 'summary_large_image',
+  twitterTitle: seoTitle,
+  twitterDescription: seoDescription,
+  twitterImage: hackClubFlag
 })
 </script>
 
