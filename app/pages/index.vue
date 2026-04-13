@@ -1,6 +1,6 @@
 <script setup lang="ts">
 useHead({
-  title: 'Bash!'
+  title: 'Bash'
 })
 
 const assets = {
@@ -58,7 +58,7 @@ const steps: Step[] = [
   {
     number: '3',
     title: 'BUILD YOUR PROJECT',
-    description: 'LOG YOUR PROJECT HOURS WITH HACKATIME FOR SOFTWARE OR LAPSE FOR HARDWARE, AND JOURNAL YOUR PROGRESS'
+    description: 'LOG YOUR PROJECT HOURS WITH HACKATIME AND JOURNAL YOUR PROGRESS'
   },
   {
     number: '4',
@@ -94,7 +94,7 @@ const projects: Project[] = [
 const faqs: Faq[] = [
   {
     question: 'What are the requirements for a project?',
-    answer: 'Your project must log at least 5 hours in Hackatime (for software projects) and Lapse (for hardware projects).'
+    answer: 'Your project must log at least 5 hours in Hackatime.'
   },
   {
     question: "What happens if I didn't complete a week?",
@@ -114,7 +114,7 @@ const faqs: Faq[] = [
   },
   {
     question: 'What kind of projects can I make?',
-    answer: 'You can build any software or hardware project you want, but you have to follow the week theme.'
+    answer: 'You can build any software project you want, but you have to follow the weeks theme.'
   },
   {
     question: 'Is all of this real and actually free?',
@@ -171,12 +171,21 @@ const footerLinks: FooterLinkGroup[] = [
               class="w-[58px] select-none sm:w-[74px] md:w-[82px]"
             >
 
-            <button
-              type="button"
-              class="font-jeju absolute right-0 top-0 inline-flex h-[36px] w-[92px] items-center justify-center bg-black text-[14px] uppercase leading-none text-white sm:h-[48px] sm:w-[124px] sm:text-[18px]"
-            >
-              SIGN IN
-            </button>
+            <div class="absolute right-0 top-0 flex items-center gap-[8px] sm:gap-[10px]">
+              <NuxtLink
+                to="/guides"
+                class="font-jeju inline-flex h-[36px] w-[82px] items-center justify-center border-[3px] border-black bg-white/35 text-[14px] uppercase leading-none text-black sm:h-[48px] sm:w-[110px] sm:text-[18px]"
+              >
+                GUIDES
+              </NuxtLink>
+
+              <button
+                type="button"
+                class="font-jeju inline-flex h-[36px] w-[92px] items-center justify-center bg-black text-[14px] uppercase leading-none text-white sm:h-[48px] sm:w-[124px] sm:text-[18px]"
+              >
+                SIGN IN
+              </button>
+            </div>
           </div>
 
           <div class="flex flex-1 flex-col items-center pb-[2px] pt-0 sm:pb-[4px] md:pb-[8px]">
@@ -333,7 +342,7 @@ const footerLinks: FooterLinkGroup[] = [
           <p class="font-jeju mt-[48px] text-center text-[18px] leading-[1.15] text-[#5d5d5d] sm:text-[22px] md:text-[24px]">
             We didn't have your question?<br>
             <a href="mailto:santiago@events.hackclub.com" class="text-black underline">
-              Send us an email! bash@hackclub.com
+              Send us an email at bash@hackclub.com
             </a>
           </p>
         </div>

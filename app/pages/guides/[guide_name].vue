@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { getGuideBySlug, getGuidesByCategory, guideCategories, guides } from '~/data/guides'
+import { getGuideBySlug, getGuidesByCategory, guideCategories, guides } from '../../data/guides'
 
 const route = useRoute()
 const guideNameParam = route.params.guide_name
@@ -54,7 +54,7 @@ const nextGuide = guideIndex < guides.length - 1 ? guides[guideIndex + 1] : unde
           Guides
         </NuxtLink>
         <button type="button" class="inline-flex h-[36px] items-center bg-black px-[14px] text-white sm:h-[44px] sm:px-[18px]">
-          Sign In
+          SIGN IN
         </button>
       </nav>
     </header>
@@ -101,12 +101,6 @@ const nextGuide = guideIndex < guides.length - 1 ? guides[guideIndex + 1] : unde
               <h1 class="font-jeju mt-[8px] text-[48px] uppercase leading-[0.92] text-black sm:text-[70px] md:text-[86px]">
                 {{ guide.title }}
               </h1>
-            </div>
-            <div
-              class="font-jeju flex size-[78px] shrink-0 items-center justify-center border-[4px] border-black text-[34px] uppercase leading-none sm:size-[94px] sm:text-[42px]"
-              :style="{ backgroundColor: guide.accent, color: '#ffffff' }"
-            >
-              {{ guideIndex + 1 }}
             </div>
           </div>
 

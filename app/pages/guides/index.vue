@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { getGuidesByCategory, guideCategories, guides } from '~/data/guides'
+import { getGuidesByCategory, guideCategories, guides } from '../../data/guides'
 
 useHead({
-  title: 'Guides | Bash!'
+  title: 'Guides | Bash'
 })
 
 const assets = {
@@ -11,9 +11,8 @@ const assets = {
 } as const
 
 const categoryDescriptions: Record<string, string> = {
-  'Read This': 'The quick orientation before you start building.',
-  Requirements: 'The proof, hours, and submission pieces reviewers need.',
-  'Project Resources': 'Helpful habits for staying unstuck and making progress visible.'
+  'Read This': 'Still dont understand how Bash works?',
+  Requirements: 'What do we ask before submitting a project?',
 }
 
 const featuredGuide = guides[0]
@@ -42,7 +41,7 @@ const guideGroups = guideCategories.map((category) => ({
           Home
         </NuxtLink>
         <button type="button" class="inline-flex h-[36px] items-center bg-black px-[14px] text-white sm:h-[44px] sm:px-[18px]">
-          Sign In
+          SIGN IN
         </button>
       </nav>
     </header>
@@ -54,10 +53,10 @@ const guideGroups = guideCategories.map((category) => ({
             Need a map?
           </p>
           <h1 class="font-jeju mt-[6px] max-w-[900px] text-[50px] uppercase leading-none text-black sm:text-[72px] md:text-[96px]">
-            Bash Guides
+            Guides
           </h1>
           <p class="font-jeju mt-[18px] max-w-[760px] text-[19px] leading-[1.08] text-[#4c4c4c] sm:text-[24px] md:text-[28px]">
-            Short field notes for picking a project, logging the work, and submitting something real before the week runs away.
+            Quick tips and notes in how to pick your first project idea, logging the work you do on it, and submitting something real before the week runs away.
           </p>
 
           <div v-if="featuredGuide" class="mt-[28px] max-w-[720px] border-[3px] border-black bg-white/45 p-[18px] sm:p-[22px]">
@@ -76,13 +75,6 @@ const guideGroups = guideCategories.map((category) => ({
               </span>
             </NuxtLink>
           </div>
-        </div>
-
-        <div class="mx-auto w-full max-w-[360px] lg:max-w-none">
-          <img :src="assets.dino" alt="" class="pointer-events-none w-full rotate-[-6deg] select-none">
-          <p class="font-barcode39 mt-[-8px] text-center text-[46px] leading-none text-black/70 sm:text-[58px]">
-            BASH GUIDES
-          </p>
         </div>
       </section>
 
