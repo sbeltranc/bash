@@ -142,6 +142,19 @@ const nextGuide = guideIndex < guides.length - 1 ? guides[guideIndex + 1] : unde
               </p>
             </div>
 
+            <div v-if="section.codeBlocks" class="mt-[18px] space-y-[14px]">
+              <div
+                v-for="codeBlock in section.codeBlocks"
+                :key="codeBlock.title"
+                class="border-[3px] border-black bg-black text-white"
+              >
+                <div class="font-jeju border-b-[2px] border-white/30 px-[12px] py-[8px] text-[14px] uppercase leading-none text-white/80 sm:text-[16px]">
+                  {{ codeBlock.title }}
+                </div>
+                <pre class="overflow-x-auto p-[12px] text-[13px] leading-[1.45] sm:text-[15px]"><code>{{ codeBlock.code }}</code></pre>
+              </div>
+            </div>
+
             <ul v-if="section.checklist" class="font-jeju mt-[18px] space-y-[10px] border-l-[5px] border-black pl-[16px] text-[18px] leading-[1.12] text-black sm:text-[21px]">
               <li v-for="item in section.checklist" :key="item" class="flex gap-[10px]">
                 <span aria-hidden="true">[]</span>

@@ -1,7 +1,14 @@
+export type GuideCodeBlock = {
+  title: string
+  language: string
+  code: string
+}
+
 export type GuideSection = {
   id: string
   title: string
   body: string[]
+  codeBlocks?: GuideCodeBlock[]
   checklist?: string[]
 }
 
@@ -49,6 +56,205 @@ export const guides: Guide[] = [
         body: [
           'If you are stuck, start with a tiny stuff. Make something silly with the theme, or even maybe make a small automations which counts if the theme allows to.',
           'Your first project should be something not so big at first! Bigger ideas get easier once you do some easier projects before.'
+        ]
+      }
+    ]
+  },
+  {
+    slug: 'make-a-slack-bot',
+    title: 'Make a Slack Bot',
+    category: 'Weeks Guide',
+    summary: 'Make a small Slack bot that replies when people mention it.',
+    eyebrow: 'Week theme',
+    readingTime: '12 min',
+    accent: '#F2C94C',
+    sections: [
+      {
+        id: 'what-you-will-make',
+        title: 'What you will make',
+        body: [
+          'You will make a small Slack bot. When someone mentions it, it sends one message back.',
+          'The bot runs on your computer while you build. Later, you can put it on a server if you want it to stay online all day.'
+        ],
+        checklist: [
+          'It only replies when someone mentions it.',
+          'It waits before replying again, so it does not send too many messages.',
+          'It keeps Slack tokens in a .env file.'
+        ]
+      },
+      {
+        id: 'create-the-project',
+        title: 'Create the project',
+        body: [
+          'Open your terminal. Run these commands in the folder where you keep your projects.',
+          'I personally use bun as my package manager, but if you use npm, you can do the same idea with npm commands.'
+        ],
+        codeBlocks: [
+          {
+            title: 'Terminal commands',
+            language: 'sh',
+            code: [
+              'mkdir slack-bot',
+              'cd slack-bot',
+              'bun init -y',
+              'bun add @slack/bolt dotenv',
+              'bun add -d typescript @types/node',
+              'mkdir src',
+              'touch src/index.ts .env .env.example .gitignore'
+            ].join('\n')
+          }
+        ]
+      },
+      {
+        id: 'create-the-slack-app',
+        title: 'Create the Slack app',
+        body: [
+          'Go to api.slack.com/apps and make a new app. Choose "From scratch". Give it a name like Bash Bot and choose your test workspace.',
+          'Turn on Socket Mode. Make an app-level token with the connections:write scope. This token starts with xapp-.',
+          'Go to OAuth & Permissions. Add the bot scopes app_mentions:read and chat:write. Then install the app to your workspace. The bot token starts with xoxb-.',
+          'Go to Event Subscriptions. Subscribe to the app_mention bot event. Then invite the bot to a test channel.'
+        ],
+        checklist: [
+          'Socket Mode is on.',
+          'SLACK_APP_TOKEN starts with xapp-.',
+          'SLACK_BOT_TOKEN starts with xoxb-.',
+          'Bot scopes are app_mentions:read and chat:write.',
+          'Bot event is app_mention.'
+        ]
+      },
+      {
+        id: 'add-the-files',
+        title: 'Add the files',
+        body: [
+          'Your project should look like this. Put your real tokens only in .env. Do not commit .env to GitHub.',
+          'Open package.json and add the scripts below. Keep the dependencies that Bun wrote when you ran bun add.'
+        ],
+        codeBlocks: [
+          {
+            title: '.env.example',
+            language: 'dotenv',
+            code: [
+              'SLACK_BOT_TOKEN=xoxb-your-bot-token',
+              'SLACK_APP_TOKEN=xapp-your-app-token'
+            ].join('\n')
+          },
+          {
+            title: '.gitignore',
+            language: 'gitignore',
+            code: [
+              '.env'
+            ].join('\n')
+          },
+          {
+            title: 'package.json',
+            language: 'json',
+            code: [
+              '{',
+              '  "type": "module",',
+              '  "scripts": {',
+              '    "dev": "bun --watch src/index.ts",',
+              '    "start": "bun src/index.ts"',
+              '  }',
+              '}'
+            ].join('\n')
+          },
+          {
+            title: 'src/index.ts',
+            language: 'ts',
+            code: [
+              "import 'dotenv/config'",
+              "import { App } from '@slack/bolt'",
+              '',
+              'const botToken = process.env.SLACK_BOT_TOKEN',
+              'const appToken = process.env.SLACK_APP_TOKEN',
+              '',
+              'if (!botToken || !appToken) {',
+              "  throw new Error('Missing Slack tokens in .env')",
+              '}',
+              '',
+              'const app = new App({',
+              '  token: botToken,',
+              '  appToken,',
+              '  socketMode: true',
+              '})',
+              '',
+              'const waitTimeMs = 2 * 60 * 1000',
+              'const lastReplyByChannel = new Map<string, number>()',
+              '',
+              "app.event('app_mention', async ({ event, say }) => {",
+              '  const now = Date.now()',
+              '  const lastReply = lastReplyByChannel.get(event.channel) ?? 0',
+              '',
+              '  if (now - lastReply < waitTimeMs) {',
+              '    return',
+              '  }',
+              '',
+              '  lastReplyByChannel.set(event.channel, now)',
+              '',
+              "  await say(`<@${event.user}> Hello. I am working.`)",
+              '})',
+              '',
+              'await app.start()',
+              '',
+              "console.log('Slack bot is running')"
+            ].join('\n')
+          }
+        ]
+      },
+      {
+        id: 'run-and-test',
+        title: 'Run and test',
+        body: [
+          'Copy the example env file. Then open .env and paste your real Slack tokens.',
+          'Start the bot. In Slack, invite the bot to your test channel and mention it. It should reply with one message.'
+        ],
+        codeBlocks: [
+          {
+            title: 'Terminal commands',
+            language: 'sh',
+            code: [
+              'cp .env.example .env',
+              '# Now edit .env and paste your real tokens.',
+              'bun run dev'
+            ].join('\n')
+          },
+          {
+            title: 'Test in Slack',
+            language: 'text',
+            code: [
+              '/invite @Bash Bot',
+              '@Bash Bot hello'
+            ].join('\n')
+          }
+        ],
+        checklist: [
+          'The terminal says Slack bot is running.',
+          'The bot replies when you mention it.',
+          'The bot does not reply again right away because of the wait time.',
+          'You can stop the bot with Ctrl+C.'
+        ]
+      },
+      {
+        id: 'change-the-reply',
+        title: 'Change the reply',
+        body: [
+          'After the bot works, change the text inside say(). This is the message your bot sends back.',
+          'Keep the wait time in the code. It helps stop the bot from sending too many messages.'
+        ],
+        codeBlocks: [
+          {
+            title: 'Line to edit',
+            language: 'ts',
+            code: [
+              "await say(`<@${event.user}> Hello. I am working.`)"
+            ].join('\n')
+          }
+        ],
+        checklist: [
+          'Only change the message text first.',
+          'Run bun run dev again after editing.',
+          'Mention the bot in Slack to test the new reply.',
+          'Take a screenshot or short video for your Bash submission.'
         ]
       }
     ]

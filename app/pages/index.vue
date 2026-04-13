@@ -29,6 +29,14 @@ type Project = {
   logo: string
   logoClass: string
   description: string
+  repoUrl: string
+}
+
+type WeekTheme = {
+  eyebrow: string
+  title: string
+  description: string
+  details: string[]
 }
 
 type Faq = {
@@ -73,23 +81,37 @@ const projects: Project[] = [
     screenshot: assets.vertScreenshot,
     logo: assets.vertLogo,
     logoClass: 'w-[98px]',
-    description: 'File conversion utility that convert files on your device instead of a cloud'
+    description: 'File conversion utility that convert files on your device instead of a cloud',
+    repoUrl: 'https://github.com/VERT-sh/vert'
   },
   {
     title: 'LibrePods',
     screenshot: assets.librePodsScreenshot,
     logo: assets.librePodsLogo,
     logoClass: 'w-[120px]',
-    description: "AirPods liberated from Apple's ecosystem."
+    description: "AirPods liberated from Apple's ecosystem.",
+    repoUrl: 'https://github.com/kavishdevar/librepods'
   },
   {
     title: 'Doom PDF',
     screenshot: assets.doomScreenshot,
     logo: assets.doomLogo,
     logoClass: 'w-[122px]',
-    description: 'A port of Doom (1993) that runs inside a PDF file'
+    description: 'A port of Doom (1993) that runs inside a PDF file',
+    repoUrl: 'https://github.com/ading2210/doompdf'
   }
 ]
+
+const weekTheme: WeekTheme = {
+  eyebrow: "This week's build prompt",
+  title: 'MAKE AN ANNOYING SLACK BOT',
+  description: 'This week, build a bot that barges into Slack with a tiny joke, weird reminders, dramatic reactions, or another harmless bit that people can actually try.',
+  details: [
+    'Pick one annoying behavior',
+    'Build it as a Slack app',
+    'Ship a demo people can invite'
+  ]
+}
 
 const faqs: Faq[] = [
   {
@@ -283,6 +305,40 @@ const footerLinks: FooterLinkGroup[] = [
 
       <section class="relative py-[88px] sm:py-[110px] lg:py-[128px]">
         <div class="mx-auto w-full max-w-[1380px] px-[20px] sm:px-[28px] md:px-[40px] lg:px-[56px]">
+          <div class="grid gap-[30px] border-y-[4px] border-black py-[34px] sm:py-[42px] lg:grid-cols-[0.85fr_1.15fr] lg:items-center">
+            <div>
+              <p class="font-jeju text-[20px] leading-none text-[#757575] sm:text-[24px] md:text-[26px]">
+                {{ weekTheme.eyebrow }}
+              </p>
+              <h2 class="font-jeju mt-[6px] text-[42px] uppercase leading-none text-black sm:text-[58px] md:text-[72px]">
+                WEEK'S THEME
+              </h2>
+            </div>
+
+            <div class="font-jeju">
+              <p class="inline-flex bg-black px-[12px] py-[8px] text-[24px] uppercase leading-none text-white sm:text-[34px] md:text-[42px]">
+                {{ weekTheme.title }}
+              </p>
+              <p class="mt-[18px] max-w-[720px] text-[18px] leading-[1.08] text-[#4c4c4c] sm:text-[22px] md:text-[26px]">
+                {{ weekTheme.description }}
+              </p>
+
+              <ul class="mt-[24px] grid gap-[10px] sm:grid-cols-3">
+                <li
+                  v-for="detail in weekTheme.details"
+                  :key="detail"
+                  class="border-[3px] border-black bg-white/35 px-[12px] py-[10px] text-[16px] uppercase leading-[1.02] text-black sm:text-[18px] md:text-[20px]"
+                >
+                  {{ detail }}
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="relative py-[88px] sm:py-[110px] lg:py-[128px]">
+        <div class="mx-auto w-full max-w-[1380px] px-[20px] sm:px-[28px] md:px-[40px] lg:px-[56px]">
           <div class="flex flex-col items-start sm:items-end">
             <p class="font-jeju text-[20px] leading-none text-[#757575] sm:text-right sm:text-[24px] md:text-[26px]">
               Need some inspiration?
@@ -316,6 +372,14 @@ const footerLinks: FooterLinkGroup[] = [
               <p class="font-jeju mt-[14px] max-w-[360px] px-[8px] text-center text-[16px] leading-[1.08] text-[#696969] sm:text-[18px] md:max-w-none">
                 {{ project.description }}
               </p>
+              <a
+                :href="project.repoUrl"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="font-jeju mt-[10px] text-[16px] uppercase leading-none text-black underline decoration-black underline-offset-[3px] sm:text-[18px]"
+              >
+                Check GitHub
+              </a>
             </article>
           </div>
         </div>

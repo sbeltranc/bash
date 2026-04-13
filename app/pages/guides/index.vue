@@ -13,6 +13,7 @@ const assets = {
 const categoryDescriptions: Record<string, string> = {
   'Read This': 'Still dont understand how Bash works?',
   Requirements: 'What do we ask before submitting a project?',
+  'Weeks Guide': 'Fresh theme guides for the project everyone is building this week.'
 }
 
 const featuredGuide = guides[0]
